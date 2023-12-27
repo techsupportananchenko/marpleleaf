@@ -1,0 +1,109 @@
+{% comment %}
+    SECTION NOTES:
+        This snippet generates an image with an <img /> tag
+
+        * Generates an image with attributes if the image is passed as an object (product.featured_image, collection.featured_image, section.settings.image)
+        * Generates a simple image if image is passed as a link with the given attributes (url, width="", height="")
+        * Generates a default svg depending on the page type if the image is not passed to the snippet
+
+    PARAMETERS:
+        - image - Main image as an object or link (product.featured_image, collection.featured_image, section.settings.image, link)
+        - width - Image width. By default, if an image object is passed, then width is taken from the object
+        - height - Image height. By default, if an image object is passed, then the height is taken from the object
+        - alt_text - Alt text for image. By default, if the image object is passed, the alt text is taken from the object. If the alt text is empty and the image is on the product or collection template - apply the product or collection title
+        - lazy - A boolean parameter setting loading="lazy" attribute. By default is true
+        - swiper - A boolean parameter that adds lazy loading functionality to images in the swiper slider.
+        - class - List of classes applied to the image
+        - sizes - determines the layout behavior of the image, how much space the image will occupy on the page depending on the size of the viewport. ("(max-width: 600px) 100vw, 50vw", sizes="100vw")
+{% endcomment %}
+
+
+{%- liquid
+  assign img_width = width | default: image.width
+  assign img_height = height | default: image.height
+  assign alt_text = alt | default: image.alt
+  assign lazy = lazy | default: false
+  assign swiper = swiper | default: false
+  assign loading = 'lazy'
+  case template.name
+      when "product"
+          assign placeholder = 'product-1'
+          if alt_text == blank
+              assign alt_text = product.title
+          endif
+      when "collection"
+          assign placeholder = 'collection-1'
+          if alt_text == blank
+              assign alt_text = collection.title
+          endif
+      else
+          assign placeholder = 'image'
+          if alt_text == blank
+              assign alt_text = shop.name | append: ' Image'
+          endif
+  endcase
+-%}
+
+{%- if lazy == true -%}
+  {%- if section.index > 2 -%}
+      {%- assign loading = "lazy" -%}
+  {%- else -%}
+      {%- assign loading = "eager" -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if image.width -%}
+  <img
+      srcset="{%- if img_width >= 50 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if img_width >= 360 -%}{{ image | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if img_width >= 533 -%}{{ image | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if img_width >= 720 -%}{{ image | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if img_width >= 940 -%}{{ image | image_url: width: 940 }} 940w,{%- endif -%}
+          {%- if img_width >= 1066 -%}{{ image | image_url: width: 1066 }} 1066w,{%- endif -%}
+      {{ image | image_url }} {{ img_width }}w"
+      {% if sizes %}
+          sizes="{{ sizes }}"
+      {% endif %}
+      {% if lazy %}
+          loading={{ loading }}
+          data-src="{{ image | image_url: 'master' }}"
+          {% else %}
+          src="{{ image | image_url: "master" }}"
+      {% endif %}
+      alt="{{ alt_text | escape }}"
+      width="{{ width | default: image.width  }}"
+      height="{{ height | default: image.height }}"
+      class="{{ class }} {% if swiper %}swiper-lazy{% endif %}"
+  >
+{%- elsif image != blank -%}
+  <img
+      {% if sizes %}
+          sizes="{{sizes}}"
+      {% endif %}
+      {% if img_width %}
+          srcset="{%- if img_width >= 50 -%}{{ image }} 165w,{%- endif -%}
+              {%- if img_width >= 360 -%}{{ image }} 360w,{%- endif -%}
+              {%- if img_width >= 533 -%}{{ image }} 533w,{%- endif -%}
+              {%- if img_width >= 720 -%}{{ image }} 720w,{%- endif -%}
+              {%- if img_width >= 940 -%}{{ image }} 940w,{%- endif -%}
+              {%- if img_width >= 1066 -%}{{ image }} 1066w,{%- endif -%}
+              {{ image }} {{ img_width }}w"
+          data-src="{{ image }}"
+      {% else %}
+          src="{{ image }}"
+      {% endif %}
+      alt="{{ alt_text | escape }}"
+      {% if lazy %}
+          loading={{ loading }}
+      {% endif %}
+      {% if img_width %}
+          width="{{ img_width }}"
+      {% endif %}
+      {% if img_height %}
+          height="{{ img_height }}"
+      {% endif %}
+      class="{{ class }} {% if swiper %}swiper-lazy{% endif %}"
+  >
+{%- else -%}
+  {{ placeholder | placeholder_svg_tag }}
+{%- endif -%}

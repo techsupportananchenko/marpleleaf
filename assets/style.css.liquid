@@ -2883,3 +2883,69 @@ div#showcase {
   align-items: center;
   margin: 20px 0;
 }
+
+.upsell-block {
+  display: inline-block;
+  padding: 0 15px;
+}
+
+.upsell-block__title {
+  font-weight: 700;
+  font-size: 20px;
+  color: #536ba7;
+  margin-bottom: 20px;
+}
+
+.upsell-items--wrapper {
+  display: flex;
+}
+
+.upsell-item {
+  margin-right: 12px;
+  flex: 1;
+  box-sizing: border-box
+}
+
+.upsell-item img {
+  border: 1px solid #DFDFDF;
+  border-radius: 50%;
+}
+
+.upsell-item--title,
+.upsell-item--price {
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.upsell-item--img-wrapper {
+  position: relative;
+  margin: 0 auto;
+  width: 70px;
+  height: 70px;
+}
+
+.upsell-checkbox {
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 1;
+
+}
+
+
+.upsell-item--img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+@media screen and (min-width: 750px) {
+  .upsell-item--img-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+}
