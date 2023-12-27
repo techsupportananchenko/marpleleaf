@@ -1,0 +1,198 @@
+<div class="cart-scope">
+  <div class="page_header">
+    <h1 class="page_heading">Shopping Cart</h1>
+  </div>
+
+  <div class="page_content">
+    {% if cart.item_count > 0 %}
+      <form action="/cart" method="post" class="" class="form-inline">
+        <div class="cart-list">
+          {% for item in cart.items %}
+            {% comment %}
+              Determining the handle of the collection that was last seen for the 'continue shopping' link.
+            {% endcomment %}
+
+            {% if forloop.first %}
+              {% assign collection_url = item.product.collections.first.url %}
+              {% if collection_url == '/collections/frontpage' or collection_url == '' -%}
+                {%- assign collection_url = '/collections/all' -%}
+              {%- endif %}
+            {% endif %}
+
+            <div class="row cart-item">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="item_image">
+                  <a href="{{ item.product.url | within: collections.all }}">
+                    <img
+                      src="{{ item.product.featured_image.src | product_img_url: 'medium' }}"
+                      alt="{{ item.title | escape }}"
+                    >
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-lg-9 col-md-9 col-sm-9">
+                <div class="item_remove pull-right">
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0"><i class="fa fa-times"></i></a>
+                </div>
+
+                <div class="product_name">
+                  <a href="{{ item.product.url | within: collections.all }}">
+                    {{ item.title }}
+                    {% if item.product.variants.size == 1 %}
+                      {% unless item.variant.title contains 'Default' %}
+                        - {{ item.variant.title }}
+                      {% endunless %}
+                    {% endif %}
+                  </a>
+                </div>
+
+                {% comment %}
+                  Line Item Properties
+                {% endcomment %}
+                {% if item.properties.size > 0 %}
+                  <div class="item_properties">
+                    {% for p in item.properties %}
+                      {% unless p.last == blank %}
+                        {{ p.first }}:
+                        {% if p.last contains '/uploads/' %}
+                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                        {% else %}
+                          {{ p.last }}
+                        {% endif %}
+                        <br>
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                <div class="item_price">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="price">
+                        <span class="money">{{ item.price | money }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="total col-sm-12">
+                      <h3>
+                        Total: <span class="money">{{ item.line_price | money }}</span>
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% comment %}
+          For the checkout and update buttons to work, they need to use
+          a name attribute set to 'checkout' and 'update', respectively. That's case-sensitive.
+        {% endcomment %}
+
+        <div class="cart_subtotal">
+          <h3>
+            Subtotal <span class="money">{{ cart.total_price | money }}</span>
+          </h3>
+        </div>
+
+        {% include 'delivery-date' %}
+
+        {% comment %}
+          <label>Card Message to Include with the Flowers</label>
+          <textarea class="form-control" name="note">{{ cart.note }}</textarea>
+        {% endcomment %}
+
+        <div class="cart_instructions">
+          <label>Occasion</label>
+          <select class="form-control" name="occasion" id="occasion" onchange="updateCartNote()">
+            <option value="default" selected disabled>Select Ocassion</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            <option value="Get Well">Get Well</option>
+            <option value="New Baby">New Baby</option>
+            <option value="Sympathy">Sympathy</option>
+            <option value="Romance">Romance</option>
+            <option value="Thank You">Thank You</option>
+            <option value="Just Because">Just Because</option>
+            <option value="Wedding">Wedding</option>
+            <option value="Holiday">Holiday</option>
+            <option value="Congrats">Congrats</option>
+            <option value="Graduation">Graduation</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label>Card Message to Include with the Flowers</label>
+          <textarea
+            class="form-control"
+            name="card-message"
+            id="card-message"
+            oninput="updateCartNote()"
+            required
+          ></textarea>
+
+          <label>Location Type</label>
+          <select class="form-control" name="location-type" id="location-type" onchange="updateCartNote()">
+            <option value="default" selected disabled>Select location</option>
+            <option value="Home">Home</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Buisness">Buisness</option>
+            <option value="Hospital">Hospital</option>
+            <option value="Residence">Residence</option>
+            <option value="Ret. Home">Ret. Home</option>
+            <option value="Funeral Home">Funeral Home</option>
+            <option value="Church">Church</option>
+            <option value="Cemetery">Cemetery</option>
+            <option value="Goverment">Goverment</option>
+            <option value="School">School</option>
+            <option value="Hotel">Hotel</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label>Additional Notes</label>
+          <textarea
+            class="form-control"
+            name="additional-notes"
+            id="additional-notes"
+            oninput="updateCartNote()"
+          ></textarea>
+        </div>
+
+        <script>
+            function updateCartNote() {
+              const occasion = 'Occasion: ' + document.getElementById('occasion').value;
+              const cardMessage = 'Card Message: ' + document.getElementById('card-message').value;
+              const locationType = 'Location Type: ' + document.getElementById('location-type').value;
+              const additionalNotes = 'Additional Notes: ' + document.getElementById('additional-notes').value;
+
+              const cartNote = [occasion, cardMessage, locationType, additionalNotes].filter(Boolean).join(',\n');
+
+              {{ cart.note }} = cartNote;
+          }
+        </script>
+
+        <div class="cart_buttons">
+          <a href="{{ collection_url }}">Continue shopping</a>
+
+          <span class="or">or</span>
+          <input type="submit" name="checkout" value="Check out" class="btn btn-primary">
+          {% comment %}Paypal and Google checkout buttons{% endcomment %}
+        </div>
+
+        {% comment %}
+          For the special instructions to be submitted with order,
+          they need to use a name attribute set to 'note'. That's case-sensitive.
+        {% endcomment %}
+      </form>
+
+    {% else %}
+      <div>
+        <h2>It appears that your cart is currently empty!</h2>
+        <h3>You can continue browsing <a href="/collections/all">here</a>.</h3>
+      </div>
+    {% endif %}
+  </div>
+  {% include 'widget-payment-methods' %}
+</div>

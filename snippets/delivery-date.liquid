@@ -1,0 +1,37 @@
+{{ '//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' | stylesheet_tag }}
+{{ '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js' | script_tag }}
+
+<div style="width:400px; clear:both;">
+  <div>
+    <div class="delivery-date">
+      <label for="date">Delivery Date:</label>
+      <input
+        id="date"
+        type="text"
+        name="attributes[date]"
+        value="{{ cart.attributes.date }}"
+        style="display:block; margin-left: 4px"
+        required>
+    </div>
+    <span style="display:block; margin-bottom: 20px" class="instructions">
+      <div>Important Delivery Information:</div>
+      <div>1. During Checkout you will be able to select Delivery Time Slot</div>
+      <div>2. Cut OFF for the Same Day Delivery is 3pm Mon-Fri and 12pm Sat-Sun</div>
+    </span>
+  </div>
+</div>
+
+<script>
+  jQuery(function () {
+    jQuery('#date').datepicker({
+      minDate: +0,
+      maxDate: '+2M',
+      beforeShowDay: jQuery.datepicker.noSundays,
+    });
+  });
+</script>
+
+{% comment %}
+  To remove days of the week that aren't Saturday and Sunday, use this:
+  http://stackoverflow.com/questions/2968414/disable-specific-days-of-the-week-on-jquery-ui-datepicker
+{% endcomment %}

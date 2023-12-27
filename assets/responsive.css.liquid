@@ -1,0 +1,702 @@
+/***********************************************************
+
+1. CSS RESET
+
+2. VARIABLES
+2.1 GRADIENTS
+2.2 CSS3 TRANSITIONS
+
+3. GLOBAL THEME STYLES
+3.1 HOVERS
+
+4. TYPOGRAPHY
+4.1 HEADINGS
+4.2 PARAGRAPHS & LISTS
+4.3 LINKS
+4.4 PRODUCT ATTRIBUTES (name, description, price)
+4.5 RTE
+
+5. FORMS & COMPONENTS
+5.1 FORMS
+5.2 ALERTS
+5.3 BUTTONS
+
+6. GLOBAL PAGE LAYOUT
+
+7. SIDEBAR CONFIGURATION
+
+8. MAIN PAGE
+8.1 HEADER
+8.2 NAVIGATION
+8.3 NIVOSLIDER
+8.4 SHOWCASE
+8.5 MAIN PRODUCT LISTING
+8.6 FOOTER
+
+9. COLLECTION PAGES
+9.1 PAGES CONTENT
+9.2 BREADCRUMBS
+9.3 COLLECTION LISTING
+9.4 PAGINATION
+
+10. SIDEBAR WIDGETS
+10.1 LINKS LIST
+10.2 SIDEBAR PRODUCT LISTING
+
+11. SEARCH RESULTS PAGE
+
+12. PRODUCT PAGE
+12.1 PRODUCT IMAGES
+12.2 PRODUCT INFO
+12.3 PRODUCT PAGINATION
+12.4 RELATED PRODUCTS
+
+13. BLOG
+13.1 POSTS LISTING
+13.2 SINGLE POST
+
+14. CUSTOMER PAGES
+14.1 LOG IN
+14.2 ACCOUNT
+14.3 ADDRESSES
+14.4 ORDERS
+
+15. CART PAGE
+15.1 CART PRODUCTS
+15.2 GUEST CHECKOUT
+
+16. CONTACTS PAGE
+
+***********************************************************/
+
+
+
+/***************************************************************************
+                                1200px <
+***************************************************************************/
+
+@media (min-width: 1200px) {
+	
+
+
+}
+
+
+/***************************************************************************
+                                < 1200px
+***************************************************************************/
+
+@media (max-width: 1199px) {
+	
+/* 8.1 HEADER */
+.header_search form {
+ 	width: 170px; 
+}
+.header_user li {
+ 	margin-right: 6px; 
+}
+.header_user li + li {
+  	padding-left: 13px;
+}	
+.header_cart {
+ 	padding: 0 15px; 
+}
+
+/* 8.2 NAVIGATION */
+.sf-menu > li > a {
+ 	padding: 12px 25px 15px; 
+}
+
+/* 8.4 SHOWCASE */
+.custom_showcase__1 .inside {
+ 	top: 50%;
+  	margin-top: -147px;
+}
+.custom_showcase__2 .inside {
+ 	top: 50%;
+  	margin-top: -91px;
+}
+.custom_showcase__3 .inside {
+ 	top: 50%;
+  	margin-top: -81px;
+}
+.custom_showcase__1 .inside:before {
+ 	position: absolute;
+  	left: -10px;
+  	right: 10px;
+  	top: -10px;
+  	bottom: -10px;
+  	border-radius: 10px;
+  	background: {{settings.color_1}};
+  	opacity: .7;
+  	content: "";
+}
+.custom_showcase__1 h2,
+.custom_showcase__1 p {
+ 	position: relative; 
+  	margin: 0px;
+}
+
+/* 8.6 FOOTER */
+
+/* 8.5 MAIN PRODUCT LISTING */
+
+/* 10.2 SIDEBAR PRODUCT LISTING */
+.product_listing_sidebar .product {
+	text-align: center;
+}
+.product_listing_sidebar .product_img {
+	width: 100%;
+	float: none;
+}
+.product_listing_sidebar .product_info {
+	margin: 10px 0 0 0;
+}
+
+
+
+/* 12.1 PRODUCT IMAGES */
+.product_img_big {
+	width: 279px;
+}
+.product_img_thumbs {
+	width: 279px;
+}
+.product_img_thumbs__list a {
+	width: 85px !important;
+}
+
+}
+
+
+
+/***************************************************************************
+                                < 980px
+***************************************************************************/
+
+@media (max-width: 992px) {
+	  
+.cart_popup {
+	top: 0 !important;
+}
+
+/* 8.1 HEADER */
+  
+#navigation {
+  	height: auto;
+}
+  
+.sf-menu > li > a {
+ 	padding: 12px 15px 15px; 
+}
+header {
+ 	padding-bottom: 12px; 
+}
+#logo {
+ 	margin-top: 20px; 
+}
+
+/* 8.2 NAVIGATION */
+#navigation .nav_wr {
+ 	border-top: 0px; 
+  	text-align: left;
+}
+#navigation.isStuck {
+	position: relative !important;
+	left: auto;
+	right: auto;
+}
+.pseudoStickyBlock {
+	display: none !important;
+}
+
+#navigation nav {
+  	width: 100%;
+}
+#navigation .jq-selectbox {
+}
+#navigation .jq-selectbox__select {
+	height: 40px;
+	padding: 0 30px 0 5px;
+  	background: {{settings.color_1}};
+  	border-radius: 25px;
+}
+#navigation .jq-selectbox__select-text {
+	width: 100% !important;
+	height: 40px;
+    color: {{ settings.color_6 }};
+    font-size: 20px;
+    line-height: 38px;
+	letter-spacing: 2px;
+	font-weight: 300;
+  	padding: 0 10px;
+}
+#navigation .jq-selectbox__trigger i {
+	right: 9px;
+	top: 14px;
+    color: {{ settings.color_6 }};
+}
+
+#navigation .jq-selectbox__dropdown {
+	width: 100% !important;
+	top: 40px !important;
+}
+#navigation .jq-selectbox__dropdown ul {
+  	padding: 10px 0px;
+  	background: {{settings.color_1}};
+	border: 1px solid {{ settings.border_color }};
+    border-radius: 10px;
+}
+#navigation .jq-selectbox__dropdown ul li {
+    padding: 4px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 14px;
+	letter-spacing: 2px;
+	font-weight: 300;
+  	text-align: left;
+  	{{trans_slow}};
+    color: {{ settings.color_6 }};
+  	text-transform: uppercase;
+}
+
+#navigation .jq-selectbox__dropdown ul li:hover {
+    color: {{ settings.color_1 }};
+    background: {{ settings.color_8 }};
+}
+#navigation .jq-selectbox__dropdown ul li.sel {
+}
+#navigation {
+ 	margin-bottom: 20px; 
+}
+
+
+/* 8.4 SHOWCASE */
+.custom_showcase__2 .inside,
+.custom_showcase__3 .inside {
+ 	padding-left: 30px; 
+  	margin-top: -78px;
+}
+.title1 {
+ 	line-height: 55px; 
+}
+  
+.custom_showcase__4 {
+ 	background-size: auto 100%; 
+}
+  
+.custom_showcase__4 .title1 {
+ 	padding-top: 144px; 
+}
+.custom_showcase_bg {
+ 	position: relative; 
+}
+.custom_showcase_bg:before {
+    position: absolute;
+    opacity: .7;
+    content: "";
+    left: 0px;
+    right: 0;
+    top: 20px;
+  	border-radius: 10px;
+    bottom: 0;
+    background: {{ settings.color_1 }}; 
+}
+.custom_bottom .title1 .wrap:before, 
+.custom_bottom .title1 .wrap:after {
+ 	display: none; 
+}
+.custom_showcase__1 .title1 span:after {display: none;}
+  
+/* 8.6 FOOTER */
+.footer_block h2 {
+ 	font-size: 15px;
+  	line-height: 15px;
+}
+.footer_block ul li a {
+  	font-size: 12px;
+}	
+
+
+/* 8.5 MAIN PRODUCT LISTING */
+
+/* 10.2 SIDEBAR PRODUCT LISTING */
+
+/* 12.1 PRODUCT IMAGES */
+.product_image-additioanl {
+	width: 229px !important;
+}
+
+
+
+/* 12.1 PRODUCT IMAGES */
+.product_img_big {
+	width: 213px;
+}
+.product_img_thumbs {
+	width: 213px;
+}
+.product_img_thumbs__list a {
+	width: 63px !important;
+}
+
+.bx-wrapper .bx-prev {
+	left: 5px;
+}
+.bx-wrapper .bx-next {
+	right: 5px;
+}
+
+}
+
+
+
+/***************************************************************************
+                                < 767px
+***************************************************************************/
+
+@media (max-width: 767px) {
+	
+/* 6. GLOBAL PAGE LAYOUT */
+.container {
+	padding:0 15px;
+}
+
+.column_left,
+.column_right,
+.column_center,
+#main_content {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.title1 {
+  	font-size: 50px;
+    line-height: 47px;
+}
+.custom_showcase__1 .inside {
+ 	margin-top: -127px; 
+}
+  
+.title1 .wrap:before, .title1 .wrap:after { display: none;}
+
+/* 8.1 HEADER */
+.header_search {
+ 	width: 100%; 
+}
+.header_search form {
+ 	width: 100%; 
+}
+.header_user {
+    width: 100%;
+  	text-align: center;
+}
+.header_top-right {
+ 	width: 100%;
+  	text-align: center;
+}
+.header_search {
+ 	margin-top: 0px; 
+}
+.header_user li a {
+ 	padding-bottom: 23px;
+}
+.header_top-right {
+ 	padding-bottom: 20px; 
+}
+
+/* 8.2 NAVIGATION */
+
+/* 8.4 SHOWCASE */
+.custom_showcase__2 .inside, 
+.custom_showcase__3 .inside {
+	margin-top: -49px;  
+}
+.custom_showcase__4 {
+ 	background-size: 100% auto;
+  	background-position: center top;
+}
+
+/* 8.6 FOOTER */
+  
+.footer_block__5 {
+  	clear: left;
+}
+.contacts_address {
+ 	display: inline-block; 
+}
+.contacts_address,
+.contacts_company {
+ 	vertical-align: baseline; 
+  	width: auto;
+}
+footer .copyright {
+ 	padding-top: 15px; 
+}
+  
+/* 8.5 MAIN PRODUCT LISTING */
+.product_listing_main .product {
+	margin: 15px 0 0 0;
+}
+.product_listing_main .product > div {
+	overflow: hidden;
+}
+
+.product_listing_main .product_img {
+	width: 120px;
+	float: left;
+	margin: 0 15px 0 0;
+}
+.product .product_info {
+ 	text-align: left;
+  	margin-top: 0px;
+}
+.product .product_name {
+ 	min-height: 0px; 
+}
+.product .product_links {
+ 	display: inline-block;
+  	text-align: center;
+}
+.product .product_img .sale {
+ 	position: static;
+  	margin-left: 0px;
+  	padding: 6px 0 7px;
+  	display: block;
+  	text-align: center;
+  	border-radius: 0px;
+}
+
+
+
+/* 10.2 SIDEBAR PRODUCT LISTING */
+.product_listing_sidebar .product {
+	overflow: hidden;
+	text-align: left;
+}
+.product_listing_sidebar .product_img {
+	width: 100px;
+	float: left;
+}
+.product_listing_sidebar .product_info {
+	margin: 0 0 0 115px;
+}
+
+
+
+/* 12.1 PRODUCT IMAGES */
+.product_img_big {
+	width: 288px;
+	margin: 0 auto;
+}
+.product_img_thumbs {
+	width: 288px;
+	margin: 0 auto;
+}
+.product_img_thumbs__list a {
+	width: 88px !important;
+}
+
+
+
+/* 12.2 PRODUCT INFO */
+.product_wrap .product_name {
+	margin: 0;
+	padding: 30px 0 0 0;
+}
+
+
+
+/* 15. CART PAGE */
+.cart_buttons {
+	text-align: center;
+}
+.cart_buttons span.or {
+	display: block;
+	margin: 5px 0;
+}
+
+}
+
+
+
+/***************************************************************************
+                                < 640px
+***************************************************************************/
+
+@media (max-width: 640px) {
+
+.custom_showcase__1 img {
+ 	width: 57%; 
+  	float:left;
+}	
+.custom_showcase__1 {
+ 	width: 100%; 
+}
+.custom_showcase__1 a {
+  	background: {{ settings.color_1 }};
+}
+.custom_showcase__2, 
+.custom_showcase__3 {
+	width: 50%;
+}
+.custom_showcase__1 .inside:before {background: none;}
+.custom_showcase__1 .inside {
+ 	position: relative;
+  	margin-top: 0px;
+  	width: 40%;
+  	float: right;
+}
+.custom_showcase__1 .inside {
+ 	margin-top: 15px; 
+}
+.custom_showcase__1 p {
+ 	display: none;
+}
+
+.custom_showcase__1 {margin-bottom: 30px;}
+.custom_showcase__1 img,
+.custom_showcase__1 a {
+ 	border-radius: 10px; 
+}
+.custom_showcase__1 a {
+ 	display: inline-block; 
+}
+.custom_showcase__1 img {
+  	border-radius: 10px 0px 0px 10px;
+}
+.custom_showcase__2 img {
+    border-radius: 10px 0px 0 10px;
+}
+.custom_showcase__3 img {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.title1 {
+ 	font-size: 36px;
+  	line-height: 30px;
+}
+.custom_showcase__2 h2 {
+ 	padding-left: 0px; 
+}
+.custom_showcase__3 h2 {
+ 	margin-top: 0px; 
+}
+.custom_showcase__2 .inside, 
+.custom_showcase__3 .inside {
+	margin-top: -43px;  
+}
+.custom_showcase__2, 
+.custom_showcase__3 {
+ 	width: 100%; 
+}
+.custom_showcase__2 a,
+.custom_showcase__3 a {
+ 	display: block; 
+}
+.custom_showcase__2 img,
+.custom_showcase__3 img {
+ 	border-radius: 10px; 
+  	width: 100%;
+}
+.custom_showcase__2 .wrapper,
+.custom_showcase__3 .wrapper {
+ 	border-radius: 9px; 
+  	background-size: 100% 100%;
+}
+.custom_showcase__3 {
+ 	margin-top: 30px; 
+}
+.custom_showcase__2 h2 {
+ 	margin-top: 3px; 
+}
+.title1.bord + .text1 {
+ 	line-height: 29px;
+  	font-size: 23px;
+}
+  
+.footer_block {
+ 	width: 100%; 
+}
+.footer_block ul li a {
+ 	font-size: 11px;
+}
+  
+  
+.blog-article_meta-comments,
+.article_meta-comments {
+ 	float: none;
+  	padding-left: 0px;
+}
+}
+
+
+/***************************************************************************
+                                < 480px
+***************************************************************************/
+
+@media (max-width: 479px) {
+  
+.custom_showcase__1 img {
+ 	width: 100%; 
+}
+.custom_showcase__1 .inside {
+ 	width: 100%;
+  	padding: 20px;
+}
+  
+.custom_showcase__1 p {
+ 	display: block;
+  	margin: 10px 0px;
+}
+.custom_showcase__1 img {
+  	border-radius: 10px;
+}
+
+.product .product_links .btn {
+ 	padding: 14px 12px 13px; 
+}
+.custom_bottom .title1 {
+ 	line-height: 44px; 
+}
+  
+/* 12.1 PRODUCT IMAGES */
+.product_wrap .product_image {
+	width: 290px;
+}
+.product_image-additioanl {
+	width: 306px !important;
+}
+.product_wrap #bx-pager a {
+	width: 87px;
+	margin-right: 15px;
+}
+
+
+
+/* 14.2 ACCOUNT */
+.customer_name .divider {
+	display: none;
+}
+.customer_name .email {
+	display: block;
+}
+.customer_name a {
+	float: none;
+}
+
+}
+
+
+
+/***************************************************************************
+                                < 340px
+***************************************************************************/
+
+@media (max-width: 340px) {
+	
+.product_listing_main .product_links .btn {
+  
+}
+
+}

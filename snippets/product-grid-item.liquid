@@ -1,0 +1,85 @@
+{% if template == 'index' %}
+    {% if settings.homepage_listing_cols == '2' %}
+    {% cycle 'step2' : '<div class="product_listing_main"><div class="row">', '' %}
+    {% elsif settings.homepage_listing_cols == '3' %}
+    {% cycle 'step3' : '<div class="product_listing_main"><div class="row">', '', '' %}
+    {% elsif settings.homepage_listing_cols == '4' %}
+    {% cycle 'step4' : '<div class="product_listing_main"><div class="row">', '', '', '' %}
+    {% endif %}
+{% else %}
+    {% if settings.collection_listing_cols == '2' %}
+    {% cycle 'step2' : '<div class="product_listing_main"><div class="row">', '' %}
+    {% elsif settings.collection_listing_cols == '3' %}
+    {% cycle 'step3' : '<div class="product_listing_main"><div class="row">', '', '' %}
+    {% elsif settings.collection_listing_cols == '4' %}
+    {% cycle 'step4' : '<div class="product_listing_main"><div class="row">', '', '', '' %}
+    {% endif %}
+{% endif %}
+
+{% comment %}Is this product on sale?{% endcomment %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+<div class="wow {% if template == 'index' %}{% if settings.homepage_listing_cols == '2' %}col-sm-6{% elsif settings.homepage_listing_cols == '3' %}col-sm-4{% elsif settings.homepage_listing_cols == '4' %}col-sm-3{% endif %}{% else %}{% if settings.collection_listing_cols == '2' %}col-sm-6{% elsif settings.collection_listing_cols == '3' %}col-sm-4{% elsif settings.collection_listing_cols == '4' %}col-sm-3{% endif %}{% endif %} 
+product product__{% if template == 'index' %}{% if settings.homepage_listing_cols == '2' %}{% cycle 'counter' : '1', '2' %}{% elsif settings.homepage_listing_cols == '3' %}{% cycle 'counter' : '1', '2', '3' %}{% elsif settings.homepage_listing_cols == '4' %}{% cycle 'counter' : '1', '2', '3', '4' %}{% endif %}{% else %}{% if settings.collection_listing_cols == '2' %}{% cycle 'counter' : '1', '2' %}{% elsif settings.collection_listing_cols == '3' %}{% cycle 'counter' : '1', '2', '3' %}{% elsif settings.collection_listing_cols == '4' %}{% cycle 'counter' : '1', '2', '3', '4' %}{% endif %}{% endif %}">
+<div>
+
+<div class="product_img">
+    <a href="{{ product.url | within: collection }}" class="hover__3">
+    	<img src="{{ product.featured_image.src | product_img_url: image_size }}" alt="{{ product.featured_image.alt | escape }}" />
+        {% if product.compare_at_price and product.compare_at_price > product.price %}
+        <span class="sale">Sale</span>
+        {% endif %}
+    </a>
+</div>
+
+<div class="product_info">
+    <div class="product_name">
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+    </div>
+
+  	<div class="product_price">
+        {% if product.price_varies %}From{% endif %}
+        <span class="money">{{ product.price | money }}</span>
+        {% if on_sale %}
+        <span class="money compare-at-price">{{ product.compare_at_price | money }}</span>
+        {% endif %}
+    </div>
+
+    <div class="product_links">
+        {% if product.available %}
+      <!--         { % include "snippet-add-to-cart" %}          -->
+		  <a href="{{ product.url }}">  
+          <button class="btn btn-cart" type="submit">Add to cart</button>
+          </a>  
+		{% else %}
+		    <h6>Sold Out</h6>
+		{% endif %}
+        <a class="btn" href="{{ product.url | within: collection }}"><i class="fa fa-info-circle"></i></a>
+    </div>
+</div>
+  
+</div>
+</div>
+
+{% if template == 'index' %}
+    {% if settings.homepage_listing_cols == '2' and forloop.last == false %}
+    {% cycle 'step22' : '', '</div></div>' %}
+    {% elsif settings.homepage_listing_cols == '3' and forloop.last == false %}
+    {% cycle 'step33' : '', '', '</div></div>' %}
+    {% elsif settings.homepage_listing_cols == '4' and forloop.last == false %}
+    {% cycle 'step44' : '', '', '', '</div></div>' %}
+    {% endif %}
+{% else %}
+    {% if settings.collection_listing_cols == '2' and forloop.last == false %}
+    {% cycle 'step22' : '', '</div></div>' %}
+    {% elsif settings.collection_listing_cols == '3' and forloop.last == false %}
+    {% cycle 'step33' : '', '', '</div></div>' %}
+    {% elsif settings.collection_listing_cols == '4' and forloop.last == false %}
+    {% cycle 'step44' : '', '', '', '</div></div>' %}
+    {% endif %}
+{% endif %}
+
+{% if forloop.last %}</div></div>{% endif %}
