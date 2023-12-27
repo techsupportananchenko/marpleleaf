@@ -1,0 +1,44 @@
+{%- assign metafields = product.metafields.custom.upsell_products.value -%}
+
+
+{%- if metafields != null -%}
+<div class="upsell-block">
+  <div class="upsell-block__title">Elevate Your Bouquet Experience!</div>
+  <div class="upsell-items--wrapper">
+    {%- for item in metafields -%}
+      <label
+        for="upsell-checkbox-{{ item.selected_or_first_available_variant.id }}"
+        onclick="handleCheckboxClick(event)"
+      >
+        <div class="upsell-item">
+          <div class="upsell-item--img-wrapper">
+            {% render 'lazy-image', image: item.featured_image, lazy: true, class: 'upsell-item--img' %}
+            <input
+              id="upsell-checkbox-{{ item.selected_or_first_available_variant.id }}"
+              class="upsell-checkbox"
+              type="checkbox"
+              data-id="{{ item.selected_or_first_available_variant.id }}"
+              name="upsell-checkbox"
+            >
+          </div>
+          <div class="upsell-item--title">
+            {{ item.title }}
+          </div>
+          <div class="upsell-item--price">
+            {{ item.price | money }}
+          </div>
+        </div>
+      </label>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  function handleCheckboxClick(event) {
+    if (!event.target.matches('.upsell-checkbox')) {
+      var checkbox = event.currentTarget.querySelector('.upsell-checkbox');
+      checkbox.click;
+    }
+  }
+</script>
+{%- endif -%}
