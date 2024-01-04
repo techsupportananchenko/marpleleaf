@@ -106,6 +106,9 @@
         {% endcomment %}
 
         <div class="cart_instructions">
+
+          <textarea style="display: none;" id="final_note" name="note">{{ cart.note }}</textarea>
+
           <label>Occasion</label>
           <select class="form-control" name="occasion" id="occasion" onchange="updateCartNote()">
             <option value="default" selected disabled>Select Ocassion</option>
@@ -161,15 +164,15 @@
         </div>
 
         <script>
-            function updateCartNote() {
-              const occasion = 'Occasion: ' + document.getElementById('occasion').value;
-              const cardMessage = 'Card Message: ' + document.getElementById('card-message').value;
-              const locationType = 'Location Type: ' + document.getElementById('location-type').value;
-              const additionalNotes = 'Additional Notes: ' + document.getElementById('additional-notes').value;
-
-              const cartNote = [occasion, cardMessage, locationType, additionalNotes].filter(Boolean).join(',\n');
-
-              {{ cart.note }} = cartNote;
+          function updateCartNote() {
+            const occasion = 'Occasion: ' + document.getElementById('occasion').value;
+            const cardMessage = 'Card Message: ' + document.getElementById('card-message').value;
+            const locationType = 'Location Type: ' + document.getElementById('location-type').value;
+            const additionalNotes = 'Additional Notes: ' + document.getElementById('additional-notes').value;
+        
+            const cartNote = [occasion, cardMessage, locationType, additionalNotes].filter(Boolean).join(',\n');
+        
+            document.getElementById("final_note").innerHTML = cartNote;
           }
         </script>
 
