@@ -58,7 +58,7 @@ Important notes about pagination:
 <!-- collection image & description -->
 {% if collection.image != blank or collection.description.size > 0 %}
     <div class="row collection_info">
-        {% if collection.image != blank %}<div class="col-sm-3 collection_img"><img src="{{ collection.image.src | collection_img_url: 'medium' }}" alt="{{ collection.image.alt | escape }}" /></div>{% endif %}
+        {% if collection.image != blank %}<div class="col-sm-3"><img src="{{ collection.image.src | collection_img_url: 'medium' }}" alt="{{ collection.image.alt | escape }}" /></div>{% endif %}
       	<div class="{% if collection.image != blank %}col-sm-9{% else %}col-sm-12{% endif %} collection_desc">
             {% if collection.description.size > 0 %}
             <div class="rte">
