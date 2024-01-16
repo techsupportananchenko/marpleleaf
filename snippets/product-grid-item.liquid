@@ -30,7 +30,9 @@ product product__{% if template == 'index' %}{% if settings.homepage_listing_col
     <a href="{{ product.url | within: collection }}" class="hover__3">
     	<img src="{{ product.featured_image.src | product_img_url: image_size }}" alt="{{ product.featured_image.alt | escape }}" />
         {% if product.compare_at_price and product.compare_at_price > product.price %}
-        <span class="sale">Sale</span>
+        <div class="sale">
+          <span>Sale</span>
+        </div>
         {% endif %}
     </a>
 </div>
